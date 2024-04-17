@@ -52,11 +52,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   public weak var delegate: SwipeCardStackDelegate?
 
-  public weak var dataSource: SwipeCardStackDataSource? {
-    didSet {
-      reloadData()
-    }
-  }
+  public weak var dataSource: SwipeCardStackDataSource?
 
   public var cardStackInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) {
     didSet {
@@ -88,14 +84,14 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     return !isAnimating && (topCard?.isUserInteractionEnabled ?? true)
   }
 
-  var isAnimating: Bool = false {
+  public var isAnimating: Bool = false {
     didSet { animatingStateChanged(isAnimating) }
   }
 
   let cardContainer = UIView()
 
   private var animator: CardStackAnimatable = CardStackAnimator.shared
-  private var stateManager: CardStackStateManagable = CardStackStateManager()
+  public var stateManager: CardStackStateManager = CardStackStateManager()
   private var delayedActions = [DelayedAction]()
 
   // MARK: - Initialization
@@ -111,7 +107,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   }
 
   convenience init(animator: CardStackAnimatable,
-                   stateManager: CardStackStateManagable) {
+                   stateManager: CardStackStateManager) {
     self.init(frame: .zero)
     self.animator = animator
     self.stateManager = stateManager
@@ -309,7 +305,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     return nil
   }
 
-  func reloadVisibleCards() {
+  public func reloadVisibleCards() {
     visibleCards.forEach { $0.card.removeFromSuperview() }
     visibleCards.removeAll()
 

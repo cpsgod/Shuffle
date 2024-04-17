@@ -24,7 +24,7 @@
 
 import UIKit
 
-struct Swipe: Equatable {
+public struct Swipe: Equatable {
   var index: Int
   var direction: SwipeDirection
 }
@@ -48,16 +48,16 @@ protocol CardStackStateManagable {
 }
 
 /// An internal class to manage the current state of the card stack.
-class CardStackStateManager: CardStackStateManagable {
+open class CardStackStateManager {
 
   /// The indices of the data source which have yet to be swiped.
   ///
   /// This array reflects the current order of the card stack, with the first element equal to the index of
   /// the top card in the data source. The order of this array accounts for both swiped and shifted cards in the stack.
-  var remainingIndices: [Int] = []
+  public var remainingIndices: [Int] = []
 
   /// An array containing the swipe history of the card stack.
-  var swipes: [Swipe] = []
+  public var swipes: [Swipe] = []
 
   var totalIndexCount: Int {
     return remainingIndices.count + swipes.count
@@ -157,7 +157,7 @@ class CardStackStateManager: CardStackStateManagable {
     remainingIndices.shift(withDistance: distance)
   }
 
-  func reset(withNumberOfCards numberOfCards: Int) {
+  public func reset(withNumberOfCards numberOfCards: Int) {
     self.remainingIndices = Array(0..<numberOfCards)
     self.swipes = []
   }
