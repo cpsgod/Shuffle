@@ -24,6 +24,7 @@
 
 import UIKit
 
+@MainActor
 @objc public protocol SwipeCardStackDelegate: AnyObject {
 
   @objc
